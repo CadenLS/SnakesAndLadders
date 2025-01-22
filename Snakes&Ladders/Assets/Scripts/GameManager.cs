@@ -6,31 +6,50 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
-{
-    [SerializeField] private Block[] grid;
+public class GameManager : MonoBehaviour {
+	[SerializeField] private Block[] grid;
 	[SerializeField] Button rollButton;
 
 	[SerializeField] private float snappingDistance = 0.1f;
-    [SerializeField] Player[] players;
-    int currentPlayer = 0;
+	[SerializeField] Player[] players;
+	int currentPlayer = 0;
 
 	[SerializeField] private TextMeshProUGUI currenPlayerVisual;
-
-
+	[SerializeField] private float moveSpeed = 1;
+	bool splineMovment = false;
+	int pointIndex = 0;
 
 	private void Start() {
-		
+
 	}
 
 	private void Update() {
-		//handle spline movment
 		Player player = players[currentPlayer];
-		if (player.currentPosition != player.nextPosition) {
-			player.transform.position = Vector3.Lerp(player.transform.position, grid[player.nextPosition-1].transform.position, Time.deltaTime);
-			if (Vector3.Distance(player.transform.position, grid[player.nextPosition-1].transform.position) < snappingDistance) {
-				player.transform.position = grid[player.nextPosition-1].transform.position;
-				player.currentPosition = player.nextPosition;
+		// if spline movement handle that
+		if (splineMovment) {
+			if (pointIndex <= grid[player.currentPosition - 1].points.Length) {
+				player.transform.position = Vector2.MoveTowards(player.transform.position, grid[player.currentPosition - 1].points[pointIndex].transform.position, Time.deltaTime * moveSpeed);
+
+				if (player.transform.position == grid[player.currentPosition - 1].points[pointIndex].transform.position) {
+					pointIndex++;
+				}
+			} else {
+				splineMovment = false;
+			}
+		} else if (player.currentPosition != player.nextPosition) { //handle normal movmement
+			player.transform.position = Vector3.MoveTowards(player.transform.position, grid[player.nextPosition - 1].transform.position, Time.deltaTime * moveSpeed);
+		}
+		if (Vector3.Distance(player.transform.position, grid[player.nextPosition - 1].transform.position) < snappingDistance &&
+			player.currentPosition != player.nextPosition) {
+			//check if it is a snake or ladder
+			player.transform.position = grid[player.nextPosition - 1].transform.position;
+			player.currentPosition = player.nextPosition;
+			if (grid[player.nextPosition - 1].extraMovement) {
+
+				player.nextPosition = grid[player.currentPosition - 1].movement;
+				pointIndex = 0;
+				splineMovment = true;
+			} else {
 				//update to next player UI and code
 				currentPlayer += 1;
 				if (currentPlayer >= players.Length) {
@@ -66,7 +85,7 @@ public class GameManager : MonoBehaviour
 			currenPlayerVisual.text = currentPlayer.ToString();
 			//enable roll button
 			rollButton.enabled = true;
-		} else if (player.nextPosition == grid.Length){
+		} else if (player.nextPosition == grid.Length) {
 			//win
 		}
 	}
