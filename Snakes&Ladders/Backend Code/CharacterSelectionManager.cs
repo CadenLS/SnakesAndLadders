@@ -13,6 +13,7 @@ public class CharacterSelectionManager
         string[] choosableColors = new string[6] { redHexCode, blueHexCode, yellowHexCode, purpleHexCode, greenHexCode, orangeHexCode};
 		string[] chosenColors = new string[6];
 
+		
 		public void colorChosen (string color, int index)
 		{
 			string colorChosen = color.toLower();
@@ -35,6 +36,9 @@ public class CharacterSelectionManager
 					break;
 				case "orange":
 					chosenColors[index] = orangeHexCode;
+					break;
+				case default:
+					Console.WriteLine("No Valid Color detected. Please input 'red', 'blue', 'yellow', purple', 'green', or 'orange'.");
 					break;
 
 			}
