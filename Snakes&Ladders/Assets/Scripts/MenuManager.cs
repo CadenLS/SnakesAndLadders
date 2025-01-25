@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
 	}
 
 	private void loadGame() {
-		Loader.Load(Loader.scenes.TestBoard);
+		Loader.Load(Loader.scenes.CharacterSelect);
 	}
 	private void quitGame() {
 		Application.Quit();

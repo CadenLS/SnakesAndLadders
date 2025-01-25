@@ -10,9 +10,10 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] private Block[] grid;
 	[SerializeField] Button rollButton;
     [SerializeField] private DiceRoller2D diceRoller;
+    [SerializeField] GameObject playerPrefab;
 
     [SerializeField] private float snappingDistance = 0.1f;
-	[SerializeField] Player[] players;
+	[SerializeField] List<Player> players;
 	int currentPlayer = 0;
 
 	[SerializeField] private TextMeshProUGUI currenPlayerVisual;
@@ -23,6 +24,13 @@ public class GameManager : MonoBehaviour {
 	private void Start() 
 	{
         diceRoller.OnRoll += HandleDiceRoll;
+        int i = 0;
+        foreach (var p in CharacterSelectionManager.chosenColors) {
+            GameObject player = Instantiate(playerPrefab,new Vector3(-3, -0.75f, 0), Quaternion.identity);
+            players.Add(player.GetComponent<Player>());
+            players[i].UpdateColor(p);
+            i++;
+        }
     }
 
 	private void Update() {
@@ -54,7 +62,7 @@ public class GameManager : MonoBehaviour {
 			} else {
 				//update to next player UI and code
 				currentPlayer += 1;
-				if (currentPlayer >= players.Length) {
+				if (currentPlayer >= players.Count) {
 					currentPlayer = 0;
 				}
 				currenPlayerVisual.text = currentPlayer.ToString();
@@ -97,7 +105,7 @@ public class GameManager : MonoBehaviour {
     private void AdvanceToNextPlayer()
     {
         currentPlayer++;
-        if (currentPlayer >= players.Length)
+        if (currentPlayer >= players.Count)
         {
             currentPlayer = 0;
         }

@@ -9,7 +9,9 @@ public static class Loader {
 	public enum scenes {
 		MainMenu,
 		TestBoard,
-		Loading
+		Loading,
+		CharacterSelect
+
 	}
 
 	public static void Load(scenes targetScene) {
