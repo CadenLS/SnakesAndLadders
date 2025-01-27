@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour {
             player.nextPosition = player.currentPosition;
             AdvanceToNextPlayer();
         }
-        if (player.nextPosition >= grid.Length)
+        if (player.nextPosition == grid.Length)
         {
             Debug.Log($"Player {currentPlayer + 1} wins!");
             LoadCongratsScene(currentPlayer);
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour {
             currentPlayer = 0;
         }
 
-        currenPlayerVisual.text = currentPlayer.ToString();
+        currenPlayerVisual.text = (currentPlayer +1).ToString();
         UpdateCurrentPlayerVisualColor();
         rollButton.enabled = true; // Enable roll button
     }

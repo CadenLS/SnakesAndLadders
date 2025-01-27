@@ -11146,9 +11146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   extraMovement: 0
   movement: 6
-  points:
-  - {fileID: 2026595277}
-  - {fileID: 383258441}
+  points: []
 --- !u!1 &473230004
 GameObject:
   m_ObjectHideFlags: 0
