@@ -15,4 +15,9 @@ public class Player : MonoBehaviour
 		playerImage.color = color;
 	}
 
+    public Color GetColor()
+    {
+        return playerImage.color;
+    }
+
 }

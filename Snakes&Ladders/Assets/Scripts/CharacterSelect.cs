@@ -7,9 +7,15 @@ using UnityEngine.UI;
 
 public class CharacterSelect : MonoBehaviour {
 	int selectedPlayer;
+	int textPlayer;
 	[SerializeField] TextMeshProUGUI chosenText;
 
-	[SerializeField] Button player1;
+    [SerializeField] GameObject player1Arrow;
+    [SerializeField] GameObject player2Arrow;
+    [SerializeField] GameObject player3Arrow;
+    [SerializeField] GameObject player4Arrow;
+
+    [SerializeField] Button player1;
 	[SerializeField] Button player2;
 	[SerializeField] Button player3;
 	[SerializeField] Button player4;
@@ -87,7 +93,12 @@ public class CharacterSelect : MonoBehaviour {
 		player3.enabled = false;
 		player4.enabled = false;
 
-		int i = 0;
+        player1Arrow.SetActive(false);
+        player2Arrow.SetActive(false);
+        player3Arrow.SetActive(false);
+        player4Arrow.SetActive(false);
+
+        int i = 0;
 		foreach (var c in CharacterSelectionManager.chosenColors) {
 			switch (i) {
 				case 0:
@@ -109,6 +120,25 @@ public class CharacterSelect : MonoBehaviour {
 			}
 			i++;
 		}
-		chosenText.text = selectedPlayer.ToString();
+
+        switch (selectedPlayer)
+        {
+            case 0:
+                player1Arrow.SetActive(true);
+                break;
+            case 1:
+                player2Arrow.SetActive(true);
+                break;
+            case 2:
+                player3Arrow.SetActive(true);
+                break;
+            case 3:
+                player4Arrow.SetActive(true);
+                break;
+        }
+
+
+        textPlayer = selectedPlayer + 1;
+		chosenText.text = textPlayer.ToString();
 	}
 }
