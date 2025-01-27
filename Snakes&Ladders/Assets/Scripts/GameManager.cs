@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour {
 
 	private void Update() 
     {
-		Player player = players[currentPlayer];
+        Player player = players[currentPlayer];
+        UpdateCurrentPlayerVisualColor();
 
         if (splineMovment)
         {
@@ -83,11 +84,15 @@ public class GameManager : MonoBehaviour {
             else
             {
                 currentPlayer = (currentPlayer + 1) % players.Count;
+
+                // Update the visual with the current player's number and color
                 currenPlayerVisual.text = (currentPlayer + 1).ToString();
+                UpdateCurrentPlayerVisualColor();
+
                 rollButton.enabled = true;
             }
         }
-	}
+    }
 
     public void OnRoll()
     {
@@ -129,7 +134,16 @@ public class GameManager : MonoBehaviour {
         }
 
         currenPlayerVisual.text = currentPlayer.ToString();
+        UpdateCurrentPlayerVisualColor();
         rollButton.enabled = true; // Enable roll button
+    }
+
+    private void UpdateCurrentPlayerVisualColor()
+    {
+        Player player = players[currentPlayer];
+        Color playerColor = player.GetColor();
+
+        currenPlayerVisual.color = playerColor; // Set the color of the text
     }
 
     private void LoadCongratsScene(int winnerIndex)
