@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
             player.nextPosition = player.currentPosition;
             AdvanceToNextPlayer();
         }
-        else if (player.nextPosition == grid.Length)
+        else if (player.nextPosition >= grid.Length)
         {
             Debug.Log($"Player {currentPlayer + 1} wins!");
         }

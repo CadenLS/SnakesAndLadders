@@ -8,7 +8,7 @@ public static class Loader {
 
 	public enum scenes {
 		MainMenu,
-		TestBoard,
+		GameBoard,
 		Loading,
 		CharacterSelect
 

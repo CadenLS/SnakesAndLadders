@@ -77,7 +77,7 @@ public class CharacterSelect : MonoBehaviour {
 		});
 
 		playGame.onClick.AddListener(() => {
-			Loader.Load(Loader.scenes.TestBoard);
+			Loader.Load(Loader.scenes.GameBoard);
 		});
 	}
 
