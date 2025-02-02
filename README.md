@@ -46,6 +46,3 @@ You can download and play the built version of the game from [this link](https:/
 
 ## License
 This project is for educational and personal use. Feel free to modify and expand upon it!
-
-## Contact
-For any issues or suggestions, reach out via [your email or GitHub link].
